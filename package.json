@@ -1,0 +1,54 @@
+{
+  "name": "playwright-schema-validator",
+  "version": "0.0.1",
+  "description": "Lightweight Playwright plugin for API schema validation. It leverages both the AJV validator (for plain JSON schemas, Swagger documents, and OpenAPI schemas) and the Zod validator (for Zod schemas).",
+  "main": "dist/src/index.js",
+  "types": "dist/src/types.d.ts",
+  "files": [
+    ".github/**/*",
+    ".npmrc",
+    "dist/**/*",
+    "tests/**/*",
+    "LICENSE",
+    "package.json",
+    "playwright.config.ts",
+    "README.md",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "prerelease": "npm run build",
+    "release": "npm cache clean --force && npm version patch && npm publish --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sclavijosuero/playwright-schema-validator.git"
+  },
+  "keywords": [
+    "plugin",
+    "playwright",
+    "ajv",
+    "zod",
+    "schema",
+    "validator",
+    "json"
+  ],
+  "author": "Sebastian Clavijo Suero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sclavijosuero/playwright-schema-validator/issues"
+  },
+  "homepage": "https://github.com/sclavijosuero/playwright-schema-validator#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "pw-api-plugin": "^2.0.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/node": "^22.13.17",
+    "core-ajv-schema-validator": "^1.0.0",
+    "core-zod-schema-validator": "^1.0.0",
+    "highlight.js": "^11.11.1"
+  }
+}
