@@ -40,6 +40,7 @@
 
 ![ValidateSchema with Playwright standard API pass](images/standard-pass.png)
 
+&nbsp; 
 
 ### Example: `validateSchema()` using **Playwright standard API requests - FAIL**.
 
@@ -75,6 +76,8 @@
 ```
 
 ![ValidateSchema with Playwright standard API](images/standard.png)
+
+&nbsp; 
 
 ### Example: `validateSchemaAjv()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
 
@@ -116,6 +119,7 @@
 
 ![ValidateSchemaAjv with Playwright standard API and custom Styles override](images/standard-custom.png)
 
+&nbsp; 
 
 ### Example: `validateSchema()` using **`pw-api-plugin`** with `pwApi` class - PASS.
 
@@ -153,6 +157,7 @@
 
 ![validateSchema with pw-api-plugin and pwApi](images/pwapi-pass.png)
 
+&nbsp; 
 
 ### Example: `validateSchema()` using **`pw-api-plugin`** with `pwApi` class - FAIL.
 
@@ -188,6 +193,7 @@
 
 ![validateSchema with pw-api-plugin and pwApi](images/pwapi.png)
 
+&nbsp; 
 
 ### Example: `validateSchemaAjv()` using **`pw-api-plugin`** with `axiosApi` class and overriding `issuesStyles` - FAIL.
 

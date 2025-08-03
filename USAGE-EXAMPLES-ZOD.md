@@ -25,6 +25,7 @@
 
 ![ValidateSchemaZod with Playwright standard API](images/standard-zod.png)
 
+&nbsp; 
 
 ### Example: `validateSchemaZod()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
 
@@ -55,6 +56,7 @@
 
 ![ValidateSchemaZod with Playwright standard API and custom Styles override](images/standard-zod-custom.png)
 
+&nbsp; 
 
 ### Example: `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class - FAIL.
 
@@ -79,6 +81,7 @@
 
 ![ValidateSchemaZod with pw-api-plugin and pwAPI](images/pwapi-zod.png)
 
+&nbsp; 
 
 ### Example: `validateSchemaZod()` using **`pw-api-plugin`** with `axiosApi` class and overriding `issuesStyles` - FAIL.
 
