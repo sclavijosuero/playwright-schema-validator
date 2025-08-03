@@ -368,12 +368,11 @@ const issuesStylesOverride = {
 ```
 
 
-
 ## USAGE EXAMPLES
 
 ### Examples For AJV Schema Validation [USAGE-EXAMPLES-AJV.md](USAGE-EXAMPLES-AJV.md).
 
-> Note: `validateSchema()` and `validateSchemaAjv()` are aliases.
+> *Note: `validateSchema()` and `validateSchemaAjv()` are aliases.*
 
 - `validateSchema()` using **Playwright standard API requests**.
 
@@ -394,146 +393,7 @@ const issuesStylesOverride = {
 - `validateSchemaZod()` using **`pw-api-plugin`** with `axiosApi` class and overriding `issuesStyles`.
 
 
-
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -----------------------------------------------
-
-### Using **`pw-api-plugin`**
-
-#### **`pwApi`** Class
-
-```js
-import { expect } from '@playwright/test';
-import { pwApi, test } from 'pw-api-plugin';
-
-import { validateSchema } from 'playwright-schema-validator';
-
-// Swagger 2.0 Schema Document for the API under test
-import petStoreSwagger from '../tests-data/schemas/petstore-swagger.json';
-
-test.describe('Petstore API', () => {
-
-    const baseUrl = 'https://petstore.swagger.io/v2';
-
-    test('Should validate schema of POST "/store/order" endpoint ', async ({ request, page }) => {
-
-        // EXAMPLE POST 1 (PASS)
-        const requestBody1 = {
-            "id": 0,
-            "petId": 0,
-            "quantity": 0,
-            "shipDate": "2024-01-01T00:57:29.231Z",
-            "status": "placed",
-            "complete": false
-        }
-
-        const responsePost1 = await pwApi.post({ request, page }, `${baseUrl}/store/order`,
-            {
-                data: requestBody1,
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }
-        );
-        expect(responsePost1.status()).toBe(200)
-        const responseBodyPost1 = await responsePost1.json()
-
-        await validateSchema({ page }, responseBodyPost1, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
-
-
-        // EXAMPLE POST 2 (FAIL: "status" not a valid value & "shipDate" is missing)
-        const requestBody2 = {
-            "id": 0,
-            "petId": 1,
-            "quantity": 11,
-            "status": "unknown",
-            "complete": false
-        }
-
-        const responsePost2 = await pwApi.post({ request, page }, `${baseUrl}/store/order`,
-            {
-                data: requestBody2,
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }
-        );
-        expect(responsePost2.status()).toBe(200)
-        const responseBodyPost2 = await responsePost2.json()
-
-        await validateSchema({ page }, responseBodyPost2, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
-
-    })
-})
-```
-
-#### **`axiosApi`** Class
-
-```js
-import { expect } from '@playwright/test';
-import { axiosApi, test } from 'pw-api-plugin';
-
-import { validateSchema } from 'playwright-schema-validator';
-
-// Swagger 2.0 Schema Document for the API under test
-import petStoreSwagger from '../tests-data/schemas/petstore-swagger.json';
-
-test.describe('Petstore API', () => {
-
-    const baseUrl = 'https://petstore.swagger.io/v2';
-
-    test('Should validate schema of POST "/store/order" endpoint ', async ({ request, page }) => {
-
-        // EXAMPLE POST 1 (PASS)
-        const requestBody1 = {
-            "id": 0,
-            "petId": 0,
-            "quantity": 0,
-            "shipDate": "2024-01-01T00:57:29.231Z",
-            "status": "placed",
-            "complete": false
-        }
-
-        const responsePost1 = await axiosApi.post({ page }, `${baseUrl}/store/order`,
-            requestBody1,
-            {
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }
-        );
-        expect(responsePost1.status).toBe(200)
-        const responseBodyPost1 = await responsePost1.data
-
-        await validateSchema({ page }, responseBodyPost1, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
-
-
-        // EXAMPLE POST 2 (FAIL: "status" not a valid value & "shipDate" is missing)
-        const requestBody2 = {
-            "id": 0,
-            "petId": 1,
-            "quantity": 11,
-            "status": "unknown",
-            "complete": false
-        }
-
-        const responsePost2 = await axiosApi.post({ page }, `${baseUrl}/store/order`,
-            requestBody2,
-            {
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            }
-        );
-        expect(responsePost2.status).toBe(200)
-        const responseBodyPost2 = await responsePost2.data
-
-        await validateSchema({ page }, responseBodyPost2, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
-
-    })
-})
-```
-
-### Using Playwright Standard Requests
+### How to use with Playwright Standard Requests
 
 ```js
 import { expect } from '@playwright/test';
@@ -600,9 +460,142 @@ test.describe('Petstore API', () => {
 })
 ```
 
-----------------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+### How to use with **`pw-api-plugin`**
+
+#### With **`pwApi`** Class
+
+```js
+import { expect } from '@playwright/test';
+import { pwApi, test } from 'pw-api-plugin';
+
+import { validateSchema } from 'playwright-schema-validator';
+
+// Swagger 2.0 Schema Document for the API under test
+import petStoreSwagger from '../tests-data/schemas/petstore-swagger.json';
+
+test.describe('Petstore API', () => {
+
+    const baseUrl = 'https://petstore.swagger.io/v2';
+
+    test('Should validate schema of POST "/store/order" endpoint ', async ({ request, page }) => {
+
+        // EXAMPLE POST 1 (PASS)
+        const requestBody1 = {
+            "id": 0,
+            "petId": 0,
+            "quantity": 0,
+            "shipDate": "2024-01-01T00:57:29.231Z",
+            "status": "placed",
+            "complete": false
+        }
+
+        const responsePost1 = await pwApi.post({ request, page }, `${baseUrl}/store/order`,
+            {
+                data: requestBody1,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }
+        );
+        expect(responsePost1.status()).toBe(200)
+        const responseBodyPost1 = await responsePost1.json()
+
+        await validateSchema({ page }, responseBodyPost1, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
 
 
+        // EXAMPLE POST 2 (FAIL: "status" not a valid value & "shipDate" is missing)
+        const requestBody2 = {
+            "id": 0,
+            "petId": 1,
+            "quantity": 11,
+            "status": "unknown",
+            "complete": false
+        }
+
+        const responsePost2 = await pwApi.post({ request, page }, `${baseUrl}/store/order`,
+            {
+                data: requestBody2,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }
+        );
+        expect(responsePost2.status()).toBe(200)
+        const responseBodyPost2 = await responsePost2.json()
+
+        await validateSchema({ page }, responseBodyPost2, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
+
+    })
+})
+```
+
+#### With **`axiosApi`** Class
+
+```js
+import { expect } from '@playwright/test';
+import { axiosApi, test } from 'pw-api-plugin';
+
+import { validateSchema } from 'playwright-schema-validator';
+
+// Swagger 2.0 Schema Document for the API under test
+import petStoreSwagger from '../tests-data/schemas/petstore-swagger.json';
+
+test.describe('Petstore API', () => {
+
+    const baseUrl = 'https://petstore.swagger.io/v2';
+
+    test('Should validate schema of POST "/store/order" endpoint ', async ({ request, page }) => {
+
+        // EXAMPLE POST 1 (PASS)
+        const requestBody1 = {
+            "id": 0,
+            "petId": 0,
+            "quantity": 0,
+            "shipDate": "2024-01-01T00:57:29.231Z",
+            "status": "placed",
+            "complete": false
+        }
+
+        const responsePost1 = await axiosApi.post({ page }, `${baseUrl}/store/order`,
+            requestBody1,
+            {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }
+        );
+        expect(responsePost1.status).toBe(200)
+        const responseBodyPost1 = await responsePost1.data
+
+        await validateSchema({ page }, responseBodyPost1, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
+
+
+        // EXAMPLE POST 2 (FAIL: "status" not a valid value & "shipDate" is missing)
+        const requestBody2 = {
+            "id": 0,
+            "petId": 1,
+            "quantity": 11,
+            "status": "unknown",
+            "complete": false
+        }
+
+        const responsePost2 = await axiosApi.post({ page }, `${baseUrl}/store/order`,
+            requestBody2,
+            {
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }
+        );
+        expect(responsePost2.status).toBe(200)
+        const responseBodyPost2 = await responsePost2.data
+
+        await validateSchema({ page }, responseBodyPost2, petStoreSwagger, { endpoint: '/store/order', method: 'post', status: 200 });
+
+    })
+})
+```
 
 
 ## ENVIRONMENT VARIABLES FOR RESULTS PRESENTATION
@@ -751,5 +744,5 @@ Thank you for your support!
 - Initial release of `playwright-schema-validator`, supporting both AJV and ZOD schema validations.
 
 ### [playwright-ajv-schema-validator 1.0.2]
-- Predecessor to the `playwright-schema-validator`
+- Predecessor to the `playwright-ajv-schema-validator`
 
