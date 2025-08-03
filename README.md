@@ -61,13 +61,14 @@ Playwright plugin for API schema validation. It leverages the `core-ajv-schema-v
     - [`validateSchemaZod(fixtures, data, schema[,issuesStyles])`](#validateschemazodfixtures-data-schemaissuesstyles)
       - [Parameters](#parameters-1)
       - [Returns](#returns-1)
-  - [USAGE EXAMPLES](#usage-examples)
-    - [Examples For AJV Schema Validation USAGE-EXAMPLES-AJV.md.](#examples-for-ajv-schema-validation-usage-examples-ajvmd)
-    - [Examples For ZOD Schema Validation USAGE-EXAMPLES-ZOD.md.](#examples-for-zod-schema-validation-usage-examples-zodmd)
+  - [USAGE](#usage)
     - [How to use with Playwright Standard Requests](#how-to-use-with-playwright-standard-requests)
     - [How to use with **`pw-api-plugin`**](#how-to-use-with-pw-api-plugin)
       - [With **`pwApi`** Class](#with-pwapi-class)
       - [With **`axiosApi`** Class](#with-axiosapi-class)
+  - [USAGE EXAMPLES](#usage-examples)
+    - [Examples For AJV Schema Validation USAGE-EXAMPLES-AJV.md.](#examples-for-ajv-schema-validation-usage-examples-ajvmd)
+    - [Examples For ZOD Schema Validation USAGE-EXAMPLES-ZOD.md.](#examples-for-zod-schema-validation-usage-examples-zodmd)
   - [ENVIRONMENT VARIABLES FOR RESULTS PRESENTATION](#environment-variables-for-results-presentation)
       - [Setting Environment Variables in the Terminal](#setting-environment-variables-in-the-terminal)
   - [SCHEMA VALIDATION RESULTS](#schema-validation-results)
@@ -381,36 +382,7 @@ const issuesStylesOverride = {
 ```
 
 
-## USAGE EXAMPLES
-
-### Examples For AJV Schema Validation [USAGE-EXAMPLES-AJV.md](USAGE-EXAMPLES-AJV.md).
-
-- `validateSchema()` using **Playwright standard API requests** - PASS.
-
-- `validateSchema()` using `validateSchema()` using **Playwright standard API requests** - FAIL.
-
-- `validateSchemaAjv()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
-
-- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - PASS.
-
-- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - FAIL.
-
-- `validateSchemaAjv()` using **`pw-api-plugin`** with **`axiosApi`** class and overriding `issuesStyles` - FAIL.
-
-
-> **Note: `validateSchema()` and `validateSchemaAjv()` are aliases.**
-
-
-### Examples For ZOD Schema Validation [USAGE-EXAMPLES-ZOD.md](USAGE-EXAMPLES-ZOD.md).
-
-- `validateSchemaZod()` using **Playwright standard API requests** - FAIL.
-
-- `validateSchemaZod()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
-
-- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class - FAIL.
-
-- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class and overriding `issuesStyles` - FAIL.
-
+## USAGE
 
 ### How to use with Playwright Standard Requests
 
@@ -615,6 +587,37 @@ test.describe('Petstore API', () => {
     })
 })
 ```
+
+
+## USAGE EXAMPLES
+
+### Examples For AJV Schema Validation [USAGE-EXAMPLES-AJV.md](USAGE-EXAMPLES-AJV.md).
+
+- `validateSchema()` using **Playwright standard API requests** - PASS.
+
+- `validateSchema()` using `validateSchema()` using **Playwright standard API requests** - FAIL.
+
+- `validateSchemaAjv()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
+
+- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - PASS.
+
+- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - FAIL.
+
+- `validateSchemaAjv()` using **`pw-api-plugin`** with **`axiosApi`** class and overriding `issuesStyles` - FAIL.
+
+
+> **Note: `validateSchema()` and `validateSchemaAjv()` are aliases.**
+
+
+### Examples For ZOD Schema Validation [USAGE-EXAMPLES-ZOD.md](USAGE-EXAMPLES-ZOD.md).
+
+- `validateSchemaZod()` using **Playwright standard API requests** - FAIL.
+
+- `validateSchemaZod()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
+
+- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class - FAIL.
+
+- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class and overriding `issuesStyles` - FAIL.
 
 
 ## ENVIRONMENT VARIABLES FOR RESULTS PRESENTATION
