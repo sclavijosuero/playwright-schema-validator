@@ -154,7 +154,6 @@ const _validateSchema = async (validatorType: string, fixtures: object, data: an
 
 
                 if (process.env.LOG_API_REPORT === 'true') {
-                    // const html = await _createDataHtmlPage(dataHtml, errors.length, errors)
                     test.info().attach(`${errorResponseBodyAgainstSchema}`, {
                         body: html,
                         contentType: 'text/html'
@@ -164,8 +163,6 @@ const _validateSchema = async (validatorType: string, fixtures: object, data: an
 
             // Report the issues in the PW UI
             if (page && process.env.LOG_API_UI !== 'false') {
-                // const html = await _createDataHtmlPage(dataHtml)
-
                 const pageContent = await page.evaluate(async ({ dataHtml, html, errors }) => {
                     const documentHtml = document.documentElement?.innerHTML
 
@@ -224,6 +221,7 @@ const _createDataHtmlPage = async (dataHtml: string, numErrors?: number, errors?
     </html>`;
 }
 
+
 /**
  * Generates a string containing inline CSS styles for an HTML document.
  *
@@ -233,10 +231,10 @@ const _inlineStyles = () => {
     return `<style>
         body { font-family: monospace; margin: 20px; }
         h3 { font-size: 1.5em; margin-bottom: 10px; }
-         .card { margin-bottom: 10px; list-style: none; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color:rgb(238, 251, 255); text-align: left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); transition: 0.3s;}
+        .card { margin-bottom: 10px; list-style: none; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color:rgb(238, 251, 255); text-align: left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); transition: 0.3s;}
         .total-errors { font-size: 1.5em; font-weight: bold; color: #c10000; margin-left: 20px; padding-left: 15px;}
         .total-errors:hover { background-color: rgb(220, 240, 250); }
-        .hljs  { margin-bottom: 10px; padding: 10px; margin-left: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: rgb(238, 251, 255); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); transition: 0.3s; }
+        .hljs  { text-wrap: wrap; overflow-wrap: break-word;margin-bottom: 10px; padding: 10px; margin-left: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: rgb(238, 251, 255); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); transition: 0.3s;}
         .hljs:hover { background-color: rgb(220, 240, 250); }
         ul { padding-left: 20px; }
         li { font-size: 1.1em; text-wrap: wrap; overflow-wrap: break-word; margin-bottom: 10px; list-style: none; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color:rgb(238, 251, 255); text-align: left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); transition: 0.3s;}

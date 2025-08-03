@@ -10,7 +10,7 @@ test.describe('Petstore API', () => {
 
     const baseUrl = 'https://petstore.swagger.io/v2';
 
-    test('Should validate schema of POST "/store/order" endpoint ', async ({ request, page }) => {
+    test('Should validate schema of POST "/store/order" with pwAxios - FAIL', async ({ page }) => {
 
         const responseGet = await axiosApi.get({ page }, `${baseUrl}/pet/findByStatus?status=pending`,
             {
@@ -23,4 +23,25 @@ test.describe('Petstore API', () => {
 
         await validateSchema({ page }, responseBodyGet, petStoreSwaggerErrors, { endpoint: '/pet/findByStatus', method: 'get', status: 200 });
     })
+
+    test('Should validate schema of POST "/store/order" with pwAxios with custom Styles override- FAIL', async ({ page }) => {
+        const issuesStyles = {
+            iconPropertyError: '🟦',
+            colorPropertyError: '#5178eb',
+            iconPropertyMissing: '🟪',
+            colorPropertyMissing: '#800080'
+        }
+
+        const responseGet = await axiosApi.get({ page }, `${baseUrl}/pet/findByStatus?status=pending`,
+            {
+                headers: { 'Content-Type': 'application/json' }
+            }
+        )
+
+        expect(responseGet.status).toBe(200)
+        const responseBodyGet = await responseGet.data
+
+        await validateSchema({ page }, responseBodyGet, petStoreSwaggerErrors, { endpoint: '/pet/findByStatus', method: 'get', status: 200 }, issuesStyles);
+    })
+
 })

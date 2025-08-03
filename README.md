@@ -1,11 +1,14 @@
-# playwright-ajv-schema-validator
+# playwright-schema-validator
 
-Playwright plugin for API schema validation. It leverages the core-ajv-schema-validator powered by the AJV package (for plain JSON schemas, Swagger documents, and OpenAPI schemas) as well as the core-zod-schema-validator powered by the ZOD package (for Zod schemas). It delivers results in a clear, user-friendly format, simplifying the process of identifying and addressing schema issues.
+Playwright plugin for API schema validation. It leverages the `core-ajv-schema-validator` powered by the **AJV package** (for **plain JSON schemas**, **Swagger documents**, and **OpenAPI schemas**) as well as the `core-zod-schema-validator` powered by the **ZOD package** (for Zod schemas). It delivers results in a clear, user-friendly format, simplifying the process of identifying and addressing schema issues.
 
-> 🚀🚀🚀 **IMPORTANT NOTE: This plugin `playright-schema-validator` replaces the previously existing `playright-ajv-schema-validator`, maintaining complete backward compatibility while extending the API to support Zod schema validation capabilities.** 
 
 ![Overview](videos/overview.gif) 
 
+
+> 🚀🚀🚀 **IMPORTANT NOTE: This plugin `playright-schema-validator` replaces the previously existing `playright-ajv-schema-validator`, maintaining complete backward compatibility while extending the API to support Zod schema validation capabilities.** 
+
+&nbsp; 
 
 ## MAIN FEATURES
 
@@ -40,39 +43,49 @@ Playwright plugin for API schema validation. It leverages the core-ajv-schema-va
 
 ## TABLE OF CONTENTS
 
-- [playwright-ajv-schema-validator](#playwright-ajv-schema-validator)
+- [playwright-schema-validator](#playwright-schema-validator)
   - [MAIN FEATURES](#main-features)
-  - [TABLE OF CONTENT](#table-of-content)
-  - [ABOUT JSON SCHEMAS AND AJV JSON SCHEMA VALIDATOR](#about-json-schemas-and-ajv-json-schema-validator)
-    - [JSON Schema](#json-schema)
-    - [OpenAPI 3.0.1 and Swagger 2.0 Schema Documents](#openapi-301-and-swagger-20-schema-documents)
-    - [Ajv JSON Schema Validator](#ajv-json-schema-validator)
-  - [INSTALLATION](#installation)
+  - [TABLE OF CONTENTS](#table-of-contents)
   - [COMPATIBILITY](#compatibility)
+  - [INSTALLATION](#installation)
   - [CONFIGURATION](#configuration)
+  - [ABOUT JSON SCHEMAS AND SCHEMA VALIDATORS](#about-json-schemas-and-schema-validators)
+    - [JSON Schema](#json-schema)
+    - [OpenAPI 3.x and Swagger 2.0 Schema Documents](#openapi-3x-and-swagger-20-schema-documents)
+    - [Ajv JSON Schema Validator](#ajv-json-schema-validator)
+    - [Zod Schema Validator](#zod-schema-validator)
   - [API Reference](#api-reference)
-    - [`validateSchema(fixtures, data, schema[, path[, issuesStyles]])`](#validateschemafixtures-data-schema-path-issuesstyles)
+    - [`validateSchema(fixtures, data, schema[, path[, issuesStyles]])` (and alias `validateSchemaAjv(fixtures, data, schema[, path[, issuesStyles]])`)](#validateschemafixtures-data-schema-path-issuesstyles-and-alias-validateschemaajvfixtures-data-schema-path-issuesstyles)
       - [Parameters](#parameters)
       - [Returns](#returns)
-  - [USAGE](#usage)
-    - [Environment variables](#environment-variables)
+    - [`validateSchemaZod(fixtures, data, schema[,issuesStyles])`](#validateschemazodfixtures-data-schemaissuesstyles)
+      - [Parameters](#parameters-1)
+      - [Returns](#returns-1)
+  - [USAGE EXAMPLES](#usage-examples)
+    - [Examples For AJV Schema Validation USAGE-EXAMPLES-AJV.md.](#examples-for-ajv-schema-validation-usage-examples-ajvmd)
+    - [Examples For ZOD Schema Validation USAGE-EXAMPLES-ZOD.md.](#examples-for-zod-schema-validation-usage-examples-zodmd)
+    - [How to use with Playwright Standard Requests](#how-to-use-with-playwright-standard-requests)
+    - [How to use with **`pw-api-plugin`**](#how-to-use-with-pw-api-plugin)
+      - [With **`pwApi`** Class](#with-pwapi-class)
+      - [With **`axiosApi`** Class](#with-axiosapi-class)
+  - [ENVIRONMENT VARIABLES FOR RESULTS PRESENTATION](#environment-variables-for-results-presentation)
       - [Setting Environment Variables in the Terminal](#setting-environment-variables-in-the-terminal)
-    - [Using **`pw-api-plugin`**](#using-pw-api-plugin)
-      - [**`pwApi`** Class](#pwapi-class)
-      - [**`axiosApi`** Class](#axiosapi-class)
-    - [Using Playwright Standard Requests](#using-playwright-standard-requests)
-  - [PRESENTATION OF RESULTS](#presentation-of-results)
-    - [Schema Validation Pass](#schema-validation-pass)
-    - [Schema Validation Fail Using **`pw-api-plugin`**](#schema-validation-fail-using-pw-api-plugin)
-    - [Schema Validation Fail Using Playwright Standard API **`request`**](#schema-validation-fail-using-playwright-standard-api-request)
-    - [Schema Validation Fails with Custom Styles Used in your Tests](#schema-validation-fails-with-custom-styles-used-in-your-tests)
+  - [SCHEMA VALIDATION RESULTS](#schema-validation-results)
+    - [Schema Validation Pass ✔️](#schema-validation-pass-️)
+    - [Schema Validation Fail ❌](#schema-validation-fail-)
+      - [Schema Validation Fail Using **`pw-api-plugin`**](#schema-validation-fail-using-pw-api-plugin)
+      - [Schema Validation Fail Using Playwright Standard API **`request`**](#schema-validation-fail-using-playwright-standard-api-request)
+      - [Schema Validation Fails with Custom Styles Used in your Tests](#schema-validation-fails-with-custom-styles-used-in-your-tests)
     - [Disable Schema Validation](#disable-schema-validation)
     - [Attach Schema Validation Failure Details in HTML Report](#attach-schema-validation-failure-details-in-html-report)
     - [Schema Validation Details in Trace Viewer](#schema-validation-details-in-trace-viewer)
+    - [Results for AJV Schema Validation vs ZOD Schema Validation](#results-for-ajv-schema-validation-vs-zod-schema-validation)
   - [LICENSE](#license)
   - [CONTRIBUTING](#contributing)
   - [CHANGELOG](#changelog)
     - [\[1.0.0\]](#100)
+    - [\[playwright-ajv-schema-validator 1.0.2\]](#playwright-ajv-schema-validator-102)
+
 
 &nbsp;
 
@@ -372,25 +385,31 @@ const issuesStylesOverride = {
 
 ### Examples For AJV Schema Validation [USAGE-EXAMPLES-AJV.md](USAGE-EXAMPLES-AJV.md).
 
-> *Note: `validateSchema()` and `validateSchemaAjv()` are aliases.*
+- `validateSchema()` using **Playwright standard API requests** - PASS.
 
-- `validateSchema()` using **Playwright standard API requests**.
+- `validateSchema()` using `validateSchema()` using **Playwright standard API requests** - FAIL.
 
-- `validateSchemaAjv()` using **Playwright standard API requests** and overriding `issuesStyles`.
+- `validateSchemaAjv()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
 
-- `validateSchema()` using **`pw-api-plugin`** with `pwApi` class.
+- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - PASS.
 
-- `validateSchemaAjv()` using **`pw-api-plugin`** with `axiosApi` class and overriding `issuesStyles`.
+- `validateSchema()` using **`pw-api-plugin`** with **`pwApi`** class - FAIL.
+
+- `validateSchemaAjv()` using **`pw-api-plugin`** with **`axiosApi`** class and overriding `issuesStyles` - FAIL.
+
+
+> **Note: `validateSchema()` and `validateSchemaAjv()` are aliases.**
+
 
 ### Examples For ZOD Schema Validation [USAGE-EXAMPLES-ZOD.md](USAGE-EXAMPLES-ZOD.md).
 
-- `validateSchemaZod()` using **Playwright standard API requests**.
+- `validateSchemaZod()` using **Playwright standard API requests** - FAIL.
 
-- `validateSchemaZod()` using **Playwright standard API requests** and overriding `issuesStyles`.
+- `validateSchemaZod()` using **Playwright standard API requests** and overriding `issuesStyles` - FAIL.
 
-- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class.
+- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class - FAIL.
 
-- `validateSchemaZod()` using **`pw-api-plugin`** with `axiosApi` class and overriding `issuesStyles`.
+- `validateSchemaZod()` using **`pw-api-plugin`** with `pwApi` class and overriding `issuesStyles` - FAIL.
 
 
 ### How to use with Playwright Standard Requests
