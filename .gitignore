@@ -1,15 +1,14 @@
-# Cypress generated files
-/cypress/videos/
-/cypress/screenshots/
-/cypress/downloads/
 
-# Node.js dependencies
-/node_modules/
-
-# Editor-specific files
-/.vscode/
-/.idea/
-
-# Common ignore patterns for Windows and macOS
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+.cache
+.vscode
 .DS_Store
-Thumbs.db
+.idea/
+Desktop.ini 
+dist
+dist/

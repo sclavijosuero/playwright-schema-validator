@@ -32,7 +32,8 @@
     "zod",
     "schema",
     "validator",
-    "json"
+    "json",
+    "api"
   ],
   "author": "Sebastian Clavijo Suero",
   "license": "MIT",
